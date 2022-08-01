@@ -1,19 +1,27 @@
+// Sets variables for a delete button, items, and completed items
 const deleteBtn = document.querySelectorAll('.fa-trash')
 const item = document.querySelectorAll('.item span')
 const itemCompleted = document.querySelectorAll('.item span.completed')
 
+// Listens for a click on one of the delete buttons and then runs the deleteItem function
 Array.from(deleteBtn).forEach((element)=>{
     element.addEventListener('click', deleteItem)
 })
 
+// Listens for a click on one of the items and then runs the markComplete function
 Array.from(item).forEach((element)=>{
     element.addEventListener('click', markComplete)
 })
 
+// Listens for a click on one of the itemCompleted and then runs the markUnComplete function
 Array.from(itemCompleted).forEach((element)=>{
     element.addEventListener('click', markUnComplete)
 })
 
+
+// Below are the three functions that are linked to each of the smurfs above
+
+// A description of what happens will go here
 async function deleteItem(){
     const itemText = this.parentNode.childNodes[1].innerText
     try{
@@ -33,6 +41,7 @@ async function deleteItem(){
     }
 }
 
+// A description of what happens will go here
 async function markComplete(){
     const itemText = this.parentNode.childNodes[1].innerText
     try{
@@ -52,6 +61,7 @@ async function markComplete(){
     }
 }
 
+// A description of what happens will go here
 async function markUnComplete(){
     const itemText = this.parentNode.childNodes[1].innerText
     try{

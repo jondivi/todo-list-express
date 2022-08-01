@@ -1,6 +1,9 @@
+/* Sets all h1 fonts to red */
 h1{
     color: red;
 }
+
+/* Sets the color of the .completed class to gray and also adds a strike through on the font/characters */
 .completed{
     color: gray;
     text-decoration: line-through;
