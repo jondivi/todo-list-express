@@ -29,13 +29,15 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 app.set('view engine', 'ejs')
 // Allows us to access the public folder
 app.use(express.static('public'))
-// Converts ....
+// Informs our server to use the information that is input into the page
 app.use(express.urlencoded({ extended: true }))
 // Converts JSON files
 app.use(express.json())
 
 
 //---- Routes
+
+
     //---- Receive (Pulls in data from our database)
     app.get('/',async (request, response)=>{
         //  Finds all items in our todo list and places them into an array
@@ -57,16 +59,23 @@ app.use(express.json())
                  // .catch(error => console.error(error))
 })
 
+
 //---- Create (Adds something to our database)
 app.post('/addTodo', (request, response) => {
+    // Searches the todo collection and adds something from the body and marks it as incomplete
     db.collection('todos').insertOne({thing: request.body.todoItem, completed: false})
     .then(result => {
+        // Console log tells us it was added
         console.log('Todo Added')
+        // This reloads the page and starts the get again
         response.redirect('/')
     })
+    // If there is an error we will get it here
     .catch(error => console.error(error))
 })
 
+
+//---- Update (updates something in our database)
 app.put('/markComplete', (request, response) => {
     db.collection('todos').updateOne({thing: request.body.itemFromJS},{
         $set: {
@@ -101,6 +110,8 @@ app.put('/markUnComplete', (request, response) => {
 
 })
 
+
+//---- Delete (deletes something from our database)
 app.delete('/deleteItem', (request, response) => {
     db.collection('todos').deleteOne({thing: request.body.itemFromJS})
     .then(result => {
@@ -111,6 +122,8 @@ app.delete('/deleteItem', (request, response) => {
 
 })
 
+
+//---- Port Listener
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
